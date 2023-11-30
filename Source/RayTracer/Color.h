@@ -8,8 +8,19 @@ public:
 	using color4_t = glm::vec4;
 	using rgba_t = uint32_t;
 
-	inline color4_t RGBAToColor(const rgba_t& rgba) { return static_cast<color4_t>(rgba); }
-	inline rgba_t ColorToRGBA(const color4_t& color)
+	inline static color4_t RGBAToColor(const rgba_t& rgba) {
+		// Extract the color components from the 32-bit unsigned integer
+		uint8_t r = (rgba >> 24) & 0xFF;
+		uint8_t g = (rgba >> 16) & 0xFF;
+		uint8_t b = (rgba >> 8) & 0xFF;
+		uint8_t a = rgba & 0xFF;
+
+		// Normalize the components to the range [0, 1]
+		float inv255 = 1.0f / 255.0f;
+		return color4_t(r * inv255, g * inv255, b * inv255, a * inv255);
+	}
+
+	inline static rgba_t ColorToRGBA(const color4_t& color)
 	{
 		uint8_t r = static_cast<uint8_t>(color.r * 255.0f);
 		uint8_t g = static_cast<uint8_t>(color.g * 255.0f);

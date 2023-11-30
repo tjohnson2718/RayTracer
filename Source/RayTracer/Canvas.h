@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <vector>
 #include "Color.h"
+#include "Renderer.h"
 
 class Renderer;
 class Canvas
@@ -22,10 +23,7 @@ public:
     friend class Renderer;
 
 private:
-    // Forward declaration of SDL Texture pointer
-    struct SDL_Texture; // Assuming SDL_Texture is an internal type
-
-    SDL_Texture* m_texture = nullptr;
+    class SDL_Texture* m_texture = nullptr;
     std::vector<Color::rgba_t> m_buffer;
-    glm::ivec2 m_size = glm::ivec2(0, 0);
+    glm::ivec2 m_size{ 0 };
 };
