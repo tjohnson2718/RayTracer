@@ -22,10 +22,10 @@ public:
 
 	inline static rgba_t ColorToRGBA(const color4_t& color)
 	{
-		uint8_t r = static_cast<uint8_t>(color.r * 255.0f);
-		uint8_t g = static_cast<uint8_t>(color.g * 255.0f);
-		uint8_t b = static_cast<uint8_t>(color.b * 255.0f);
-		uint8_t a = static_cast<uint8_t>(color.a * 255.0f);
+		uint8_t r = static_cast<uint8_t>(glm::clamp(color.r, 0.0f, 1.0f) * 255.0f);
+		uint8_t g = static_cast<uint8_t>(glm::clamp(color.g, 0.0f, 1.0f) * 255.0f);
+		uint8_t b = static_cast<uint8_t>(glm::clamp(color.b, 0.0f, 1.0f) * 255.0f);
+		uint8_t a = static_cast<uint8_t>(glm::clamp(color.a, 0.0f, 1.0f) * 255.0f);
 
 		// Pack the components into a 32-bit unsigned integer
 		return (static_cast<uint32_t>(r) << 24) |
