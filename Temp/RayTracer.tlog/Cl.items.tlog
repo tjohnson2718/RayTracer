@@ -2,6 +2,9 @@ C:\Neumont\Second Year\Quarter 1\GAT350\RayTracer\Source\RayTracer\Camera.cpp;C:
 C:\Neumont\Second Year\Quarter 1\GAT350\RayTracer\Source\RayTracer\Canvas.cpp;C:\Neumont\Second Year\Quarter 1\GAT350\RayTracer\Temp\Canvas.obj
 C:\Neumont\Second Year\Quarter 1\GAT350\RayTracer\Source\RayTracer\Main.cpp;C:\Neumont\Second Year\Quarter 1\GAT350\RayTracer\Temp\Main.obj
 C:\Neumont\Second Year\Quarter 1\GAT350\RayTracer\Source\RayTracer\Material.cpp;C:\Neumont\Second Year\Quarter 1\GAT350\RayTracer\Temp\Material.obj
+C:\Neumont\Second Year\Quarter 1\GAT350\RayTracer\Source\RayTracer\Mesh.cpp;C:\Neumont\Second Year\Quarter 1\GAT350\RayTracer\Temp\Mesh.obj
+C:\Neumont\Second Year\Quarter 1\GAT350\RayTracer\Source\RayTracer\Plane.cpp;C:\Neumont\Second Year\Quarter 1\GAT350\RayTracer\Temp\Plane.obj
 C:\Neumont\Second Year\Quarter 1\GAT350\RayTracer\Source\RayTracer\Renderer.cpp;C:\Neumont\Second Year\Quarter 1\GAT350\RayTracer\Temp\Renderer.obj
 C:\Neumont\Second Year\Quarter 1\GAT350\RayTracer\Source\RayTracer\Scene.cpp;C:\Neumont\Second Year\Quarter 1\GAT350\RayTracer\Temp\Scene.obj
 C:\Neumont\Second Year\Quarter 1\GAT350\RayTracer\Source\RayTracer\Sphere.cpp;C:\Neumont\Second Year\Quarter 1\GAT350\RayTracer\Temp\Sphere.obj
+C:\Neumont\Second Year\Quarter 1\GAT350\RayTracer\Source\RayTracer\Triangle.cpp;C:\Neumont\Second Year\Quarter 1\GAT350\RayTracer\Temp\Triangle.obj
