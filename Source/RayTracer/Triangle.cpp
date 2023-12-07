@@ -42,7 +42,7 @@ bool Triangle::Hit(const ray_t& ray, float minDistance, float maxDistance, rayca
         // set raycast hit
         raycastHit.distance = t;
         raycastHit.point = ray.At(t);
-        raycastHit.normal = normal;
+        raycastHit.normal = glm::normalize(normal);
         raycastHit.material = GetMaterial();
 
         return true;

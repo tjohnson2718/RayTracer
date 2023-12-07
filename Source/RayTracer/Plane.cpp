@@ -20,7 +20,7 @@ bool Plane::Hit(const ray_t& ray, float minDistance, float maxDistance, raycastH
     }
 
     // Check if t is outside min and max distance
-    if (t < minDistance || t > maxDistance)
+    if (t <= minDistance || t >= maxDistance)
     {
         return false;
     }
@@ -28,7 +28,7 @@ bool Plane::Hit(const ray_t& ray, float minDistance, float maxDistance, raycastH
     // Set raycast hit
     raycastHit.distance = t;
     raycastHit.point = ray.origin + t * ray.direction;
-    raycastHit.normal = m_normal;
+    raycastHit.normal = glm::normalize(m_normal);
     raycastHit.material = GetMaterial();
 
     return true;
