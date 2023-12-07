@@ -4,8 +4,10 @@
 #include "Ray.h"
 #include "Object.h"
 #include "Random.h"
+#include <iostream>
+#include <iomanip>
 
-void Scene::Render(class Canvas& canvas, int numSamples)
+void Scene::Render(class Canvas& canvas, int numSamples, int depth)
 {
 	for (int y = 0; y < canvas.GetSize().y; y++)
 	{
@@ -28,13 +30,14 @@ void Scene::Render(class Canvas& canvas, int numSamples)
 				//Cast ray into scene
 				//set color value from trace
 				raycastHit_t raycastHit;
-				color += Trace(ray, 0, 100, raycastHit, m_depth);
+				color += Trace(ray, 0, 100, raycastHit, depth);
 			}
 
 			//draw color to canvas point (pixel)
 			// Get average color
 			color /= numSamples;
 			canvas.DrawPoint(pixel, Color::color4_t(color, 1));
+			std::cout << std::setprecision(2) << std::setw(5) << ((y / (float)canvas.GetSize().y) * 100) << "%\n";
 		}
 	}
 }

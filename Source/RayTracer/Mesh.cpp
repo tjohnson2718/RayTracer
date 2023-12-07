@@ -1,4 +1,5 @@
 #include "Mesh.h"
+#include "Triangle.h"
 #include <iostream>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -7,13 +8,15 @@
 #include <glm/gtx/euler_angles.hpp>
 #include <glm/gtx/transform.hpp>
 
-/*
+
 bool Mesh::Hit(const ray_t& ray, float minDistance, float maxDistance, raycastHit_t& raycastHit)
 {
 	// check cast ray with mesh triangles 
-	for (<i = 0, while less than number of vertices and increment by 3 each iteration>)
+	//for (<i = 0, while less than number of vertices and increment by 3 each iteration>)
+	for (int i = 0; i < m_vertices.size(); i += 3)
 	{
-		Triangle triangle(< set the three vertices for the triangle(m_vertices[i], [i + 1], [i + 2] > , m_material);
+		//Triangle triangle(< set the three vertices for the triangle(m_vertices[i], [i + 1], [i + 2] > , m_material);
+		Triangle triangle(m_vertices[i], m_vertices[i + 1], m_vertices[i + 2], m_material);
 		if (triangle.Hit(ray, minDistance, maxDistance, raycastHit))
 		{
 			return true;
@@ -70,7 +73,8 @@ void Mesh::ProcessMesh(aiMesh* mesh, const aiScene* scene, const glm::mat4& tran
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
 		glm::vec3 position = transform * glm::vec4{ mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z, 1 };
-		<add position to positions vector>
+		//<add position to positions vector>
+		positions.push_back(std::move(position));
 	}
 
 	// get mesh index vertices
@@ -82,8 +86,8 @@ void Mesh::ProcessMesh(aiMesh* mesh, const aiScene* scene, const glm::mat4& tran
 		{
 			// add positions to vertices vector, face contains index into positions of the triangle
 			unsigned int index = face.mIndices[j];
-			<add position at index to m_vertices>
+			//<add position at index to m_vertices>
+			m_vertices.push_back(std::move(positions[index]));
 		}
 	}
 }
-*/

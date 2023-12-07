@@ -9,12 +9,39 @@
 #include "Sphere.h"
 #include "Triangle.h"
 #include "Plane.h"
+#include "Mesh.h"
 
+class InitilizeScene
+{
+public:
+	static void InitScene02(Scene& scene, const Canvas& canvas)
+	{
+		float aspectRatio = canvas.GetSize().x / canvas.GetSize().y;
+		std::shared_ptr<Camera> camera = std::make_shared<Camera>(glm::vec3{ 0, 2, 10 }, glm::vec3{ 0, 1, 0 }, glm::vec3{ 0, 1, 0 }, 20.0f, aspectRatio);
+		scene.SetCamera(camera);
+
+		//auto triangle = std::make_unique<Triangle>(glm::vec3{ -1, 0, 0 }, glm::vec3{ 1, 0, 0 }, glm::vec3{ 0, 2, 0 }, std::make_shared<Lambertian>(color3_t{ 1, 0, 0 }));
+		//scene.AddObject(std::move(triangle));
+
+		auto plane = std::make_unique<Plane>(glm::vec3{ 0, 0, 0 }, glm::vec3{ 0, 1, 0 }, std::make_shared<Lambertian>(Color::color3_t{ 0.2f }));
+		scene.AddObject(std::move(plane));
+
+		auto mesh = std::make_unique<Mesh>(std::make_shared<Lambertian>(Color::color3_t{ 0, 0, 1 }));
+		mesh->Load("models/cube.obj", glm::vec3{ 0, 0.5f, 0 }, glm::vec3{ 0, 45, 0 });
+		scene.AddObject(std::move(mesh));
+	}
+};
 
 int main(int argc, char* argv[])
 {
+	const int width = 800;
+	const int height = 700;
+	const int samples = 10;
+	const int depth = 5;
+
 	std::cout << "Hello World!";
 	Renderer renderer;
+
 	auto currentTime = std::chrono::system_clock::now();
 	auto currentTimeInSeconds = std::chrono::duration_cast<std::chrono::seconds>(currentTime.time_since_epoch());
 	unsigned int seed = static_cast<unsigned int>(currentTimeInSeconds.count());
@@ -25,17 +52,17 @@ int main(int argc, char* argv[])
 		std::cout << "Failed to Initialize Renderer";
 	}
 
-	if (!renderer.CreateWindow("Renderer", 800, 700))
+	if (!renderer.CreateWindow("Renderer", width, height))
 	{
 		std::cout << "Failed to Create Window";
 	}
 
-	Canvas canvas(400, 300, renderer);
+	Canvas canvas(width, height, renderer);
 
 	float aspectRatio = canvas.GetSize().x / (float)canvas.GetSize().y;
 	std::shared_ptr<Camera> camera = std::make_shared<Camera>(glm::vec3{ 0, 1, 10 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 0, 1, 0 }, 20.0f, aspectRatio);
 
-	Scene scene(8, glm::vec3{ 1.0f }, glm::vec3{ 0.5f, 0.7f, 1.0f });	
+	Scene scene(glm::vec3{ 1.0f }, glm::vec3{ 0.5f, 0.7f, 1.0f });	
 	scene.SetCamera(camera);
 
 	// create material
@@ -44,7 +71,15 @@ int main(int argc, char* argv[])
 
 	std::shared_ptr<Material> material = std::make_shared<Lambertian>(Color::color3_t{ 0.2f });
 	auto plane = std::make_unique<Plane>(glm::vec3{ 0, 0, 0 }, glm::vec3{ 0, 1, 0 }, material);
-	scene.AddObject(std::move(plane));for (int x = -10; x < 10; x++)
+	scene.AddObject(std::move(plane));
+
+	InitilizeScene::InitScene02(scene, canvas);
+
+	// create objects -> add to scene
+	//auto mesh = std::make_unique<Mesh>(std::make_shared<Lambertian>(Color::color3_t{ 0, 0, 1 }));
+	//mesh->Load("models/cube.obj", glm::vec3{ 0, 0.5f, 0 }, glm::vec3{ 0, 45, 0 });
+	//scene.AddObject(std::move(mesh));
+
 	/*
 	for (int x = -10; x < 10; x++)
 	{
@@ -69,8 +104,8 @@ int main(int argc, char* argv[])
 		}
 	}
 	*/
-
-	// create objects -> add to scene
+	//auto mesh = std::make_unique<Mesh>(std::make_shared<Lambertian>(Color::color3_t{ 0, 0, 1 }));
+		
 	/*
 	for (int i = 0; i < 10; i++)
 	{
@@ -80,12 +115,12 @@ int main(int argc, char* argv[])
 	}
 	*/
 
-	material = std::dynamic_pointer_cast<Material>(lambertian);
-	auto triangle = std::make_unique<Triangle>(glm::vec3(-1, 0, 0), glm::vec3(1, 0, 0), glm::vec3(0, 1, 0), material);
-	scene.AddObject(std::move(triangle));
+	//material = std::dynamic_pointer_cast<Material>(lambertian);
+	//auto triangle = std::make_unique<Triangle>(glm::vec3(-1, 0, 0), glm::vec3(1, 0, 0), glm::vec3(0, 1, 0), material);
+	//scene.AddObject(std::move(triangle));
 
 	canvas.Clear({ 0, 0, 0, 1 });
-	scene.Render(canvas, 2);
+	scene.Render(canvas, samples, depth);
 	canvas.Update();
 	
 	bool quit = false;
